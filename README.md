@@ -1,0 +1,3 @@
+# Hischool.hu Website
+
+💫 Soon...
