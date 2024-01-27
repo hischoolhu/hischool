@@ -3,4 +3,4 @@ module.exports = {
   extends: ['@payloadcms'],
   ignorePatterns: ['**/payload-types.ts'],
   plugins: ['prettier'],
-}
+};

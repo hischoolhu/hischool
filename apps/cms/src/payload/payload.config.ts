@@ -18,7 +18,6 @@ import { Posts } from './collections/Posts';
 import { Projects } from './collections/Projects';
 import Users from './collections/Users';
 import BeforeDashboard from './components/BeforeDashboard';
-import BeforeLogin from './components/BeforeLogin';
 import { seed } from './endpoints/seed';
 import { Footer } from './globals/Footer';
 import { Header } from './globals/Header';
@@ -37,9 +36,6 @@ export default buildConfig({
     user: Users.slug,
     bundler: webpackBundler(),
     components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
-      beforeLogin: [BeforeLogin],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
       beforeDashboard: [BeforeDashboard],
@@ -53,7 +49,7 @@ export default buildConfig({
           dotenv: path.resolve(__dirname, './dotenv.js'),
           [path.resolve(__dirname, './endpoints/seed')]: path.resolve(
             __dirname,
-            './emptyModuleMock.js',
+            './emptyModuleMock.js'
           ),
         },
       },

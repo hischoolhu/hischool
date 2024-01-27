@@ -66,7 +66,7 @@ export const populateArchiveBlock: AfterReadHook = async ({
       }
 
       return block;
-    }),
+    })
   );
 
   return {
