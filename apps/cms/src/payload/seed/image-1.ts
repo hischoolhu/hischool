@@ -1,4 +1,4 @@
-import type { Media } from '../payload-types'
+import type { Media } from '../payload-types';
 
 export const image1: Omit<Media, 'id' | 'createdAt' | 'updatedAt'> = {
   alt: 'Shirts',
@@ -39,4 +39,4 @@ export const image1: Omit<Media, 'id' | 'createdAt' | 'updatedAt'> = {
       ],
     },
   ],
-}
+};

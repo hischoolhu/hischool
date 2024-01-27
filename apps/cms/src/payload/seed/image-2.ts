@@ -1,4 +1,4 @@
-import type { Media } from '../payload-types'
+import type { Media } from '../payload-types';
 
 export const image2: Omit<Media, 'id' | 'createdAt' | 'updatedAt'> = {
   alt: 'E-Book',
@@ -39,4 +39,4 @@ export const image2: Omit<Media, 'id' | 'createdAt' | 'updatedAt'> = {
       ],
     },
   ],
-}
+};

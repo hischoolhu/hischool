@@ -1,22 +1,32 @@
-import type { AfterReadHook } from 'payload/dist/collections/config/types'
+import type { AfterReadHook } from 'payload/dist/collections/config/types';
 
-import type { Page, Post } from '../payload-types'
+import type { Page, Post } from '../payload-types';
 
-export const populateArchiveBlock: AfterReadHook = async ({ doc, context, req: { payload } }) => {
+export const populateArchiveBlock: AfterReadHook = async ({
+  doc,
+  context,
+  req: { payload },
+}) => {
   // pre-populate the archive block if `populateBy` is `collection`
   // then hydrate it on your front-end
 
   const layoutWithArchive = await Promise.all(
-    doc.layout.map(async block => {
+    doc.layout.map(async (block) => {
       if (block.blockType === 'archive') {
-        const archiveBlock = block as Extract<Page['layout'][0], { blockType: 'archive' }> & {
+        const archiveBlock = block as Extract<
+          Page['layout'][0],
+          { blockType: 'archive' }
+        > & {
           populatedDocs: Array<{
-            relationTo: 'pages' | 'posts'
-            value: string
-          }>
-        }
+            relationTo: 'pages' | 'posts';
+            value: string;
+          }>;
+        };
 
-        if (archiveBlock.populateBy === 'collection' && !context.isPopulatingArchiveBlock) {
+        if (
+          archiveBlock.populateBy === 'collection' &&
+          !context.isPopulatingArchiveBlock
+        ) {
           const res: { totalDocs: number; docs: Post[] } = await payload.find({
             collection: archiveBlock.relationTo,
             limit: archiveBlock.limit || 10,
@@ -28,9 +38,13 @@ export const populateArchiveBlock: AfterReadHook = async ({ doc, context, req: {
                 ? {
                     categories: {
                       in: archiveBlock.categories
-                        .map(cat => {
-                          if (typeof cat === 'string' || typeof cat === 'number') return cat
-                          return cat.id
+                        .map((cat) => {
+                          if (
+                            typeof cat === 'string' ||
+                            typeof cat === 'number'
+                          )
+                            return cat;
+                          return cat.id;
                         })
                         .join(','),
                     },
@@ -38,7 +52,7 @@ export const populateArchiveBlock: AfterReadHook = async ({ doc, context, req: {
                 : {}),
             },
             sort: '-publishedAt',
-          })
+          });
 
           return {
             ...block,
@@ -47,16 +61,16 @@ export const populateArchiveBlock: AfterReadHook = async ({ doc, context, req: {
               relationTo: archiveBlock.relationTo,
               value: thisDoc.id,
             })),
-          }
+          };
         }
       }
 
-      return block
+      return block;
     }),
-  )
+  );
 
   return {
     ...doc,
     layout: layoutWithArchive,
-  }
-}
+  };
+};

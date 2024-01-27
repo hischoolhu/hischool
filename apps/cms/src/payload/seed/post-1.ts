@@ -1,4 +1,4 @@
-import type { Post } from '../payload-types'
+import type { Post } from '../payload-types';
 export const post1: Partial<Post> = {
   title: 'Post 1',
   slug: 'post-1',
@@ -78,4 +78,4 @@ export const post1: Partial<Post> = {
     },
   ],
   relatedPosts: [], // this is populated by the seed script
-}
+};
