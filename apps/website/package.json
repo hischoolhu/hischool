@@ -12,10 +12,12 @@
   "dependencies": {
     "@astrojs/check": "^0.4.1",
     "astro": "^4.2.6",
+    "qs": "^6.11.2",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@hischoolhu/cms": "^1.0.0",
+    "@types/qs": "^6.9.11",
     "prettier": "^3.2.4",
     "prettier-plugin-astro": "^0.13.0"
   }

@@ -62,12 +62,7 @@
   },
   "exports": {
     ".": {
-      "serve": {
-        "types": "./dist/index.js",
-        "require": "./dist/index.js",
-        "import": "./dist/index.js"
-      },
-      "default": {
+      "types": {
         "types": "./src/index.ts",
         "require": "./src/index.ts",
         "import": "./src/index.ts"

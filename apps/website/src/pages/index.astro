@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import Card from '../components/Card.astro';
+import Layout from '../layouts/Layout.astro';
 
-import { getPages } from "../client/payload-client";
+import { getPages } from '../client/payload-client';
 
 const pages = await getPages();
 ---
@@ -47,7 +47,7 @@ const pages = await getPages();
       {
         pages.map((page) => (
           <Card
-            href={page.slug ?? ""}
+            href={page.slug ?? ''}
             title={page.title}
             body={page.createdAt}
           />
