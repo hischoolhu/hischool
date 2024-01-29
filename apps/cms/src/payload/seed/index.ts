@@ -51,13 +51,13 @@ export const seed = async (payload: Payload): Promise<void> => {
       payload.delete({
         collection: collection as 'media',
         where: {},
-      })
+      }),
     ), // eslint-disable-line function-paren-newline
     ...globals.map(async (global) =>
       payload.updateGlobal({
         slug: global as 'header',
         data: {},
-      })
+      }),
     ), // eslint-disable-line function-paren-newline
   ]);
 
@@ -74,8 +74,8 @@ export const seed = async (payload: Payload): Promise<void> => {
             },
           },
         });
-      }
-    )
+      },
+    ),
   );
 
   let [{ id: demoAuthorID }, { id: demoUserID }] = await Promise.all([
@@ -180,7 +180,7 @@ export const seed = async (payload: Payload): Promise<void> => {
     data: JSON.parse(
       JSON.stringify({ ...post1, categories: [technologyCategory.id] })
         .replace(/"\{\{IMAGE\}\}"/g, image1ID)
-        .replace(/"\{\{AUTHOR\}\}"/g, demoAuthorID)
+        .replace(/"\{\{AUTHOR\}\}"/g, demoAuthorID),
     ),
   });
 
@@ -189,7 +189,7 @@ export const seed = async (payload: Payload): Promise<void> => {
     data: JSON.parse(
       JSON.stringify({ ...post2, categories: [newsCategory.id] })
         .replace(/"\{\{IMAGE\}\}"/g, image1ID)
-        .replace(/"\{\{AUTHOR\}\}"/g, demoAuthorID)
+        .replace(/"\{\{AUTHOR\}\}"/g, demoAuthorID),
     ),
   });
 
@@ -198,7 +198,7 @@ export const seed = async (payload: Payload): Promise<void> => {
     data: JSON.parse(
       JSON.stringify({ ...post3, categories: [financeCategory.id] })
         .replace(/"\{\{IMAGE\}\}"/g, image1ID)
-        .replace(/"\{\{AUTHOR\}\}"/g, demoAuthorID)
+        .replace(/"\{\{AUTHOR\}\}"/g, demoAuthorID),
     ),
   });
 
@@ -245,8 +245,8 @@ export const seed = async (payload: Payload): Promise<void> => {
             user: demoUserID,
             doc: post.id,
           },
-        })
-    )
+        }),
+    ),
   );
 
   payload.logger.info(`— Seeding projects...`);
@@ -258,8 +258,8 @@ export const seed = async (payload: Payload): Promise<void> => {
     data: JSON.parse(
       JSON.stringify({ ...project1, categories: [designCat.id] }).replace(
         /"\{\{IMAGE\}\}"/g,
-        image2ID
-      )
+        image2ID,
+      ),
     ),
   });
 
@@ -268,8 +268,8 @@ export const seed = async (payload: Payload): Promise<void> => {
     data: JSON.parse(
       JSON.stringify({ ...project2, categories: [softwareCat.id] }).replace(
         /"\{\{IMAGE\}\}"/g,
-        image2ID
-      )
+        image2ID,
+      ),
     ),
   });
 
@@ -278,8 +278,8 @@ export const seed = async (payload: Payload): Promise<void> => {
     data: JSON.parse(
       JSON.stringify({ ...project3, categories: [engineeringCat.id] }).replace(
         /"\{\{IMAGE\}\}"/g,
-        image2ID
-      )
+        image2ID,
+      ),
     ),
   });
 
@@ -314,7 +314,7 @@ export const seed = async (payload: Payload): Promise<void> => {
   const postsPageDoc = await payload.create({
     collection: 'pages',
     data: JSON.parse(
-      JSON.stringify(postsPage).replace(/"\{\{IMAGE\}\}"/g, image1ID)
+      JSON.stringify(postsPage).replace(/"\{\{IMAGE\}\}"/g, image1ID),
     ),
   });
 
@@ -323,7 +323,7 @@ export const seed = async (payload: Payload): Promise<void> => {
   const projectsPageDoc = await payload.create({
     collection: 'pages',
     data: JSON.parse(
-      JSON.stringify(projectsPage).replace(/"\{\{IMAGE\}\}"/g, image1ID)
+      JSON.stringify(projectsPage).replace(/"\{\{IMAGE\}\}"/g, image1ID),
     ),
   });
 
@@ -344,7 +344,7 @@ export const seed = async (payload: Payload): Promise<void> => {
         .replace(/"\{\{IMAGE_1\}\}"/g, image1ID)
         .replace(/"\{\{IMAGE_2\}\}"/g, image2ID)
         .replace(/"\{\{POSTS_PAGE_ID\}\}"/g, postsPageID)
-        .replace(/"\{\{PROJECTS_PAGE_ID\}\}"/g, projectsPageID)
+        .replace(/"\{\{PROJECTS_PAGE_ID\}\}"/g, projectsPageID),
     ),
   });
 
