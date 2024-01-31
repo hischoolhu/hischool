@@ -443,7 +443,7 @@ export interface Post {
 export interface User {
   id: string;
   name?: string | null;
-  roles?: ('admin' | 'user')[] | null;
+  roles?: ('admin' | 'user' | 'publisher')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;

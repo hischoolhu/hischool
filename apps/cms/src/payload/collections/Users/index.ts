@@ -43,6 +43,10 @@ const Users: CollectionConfig = {
           label: 'user',
           value: 'user',
         },
+        {
+          label: 'publisher',
+          value: 'publisher',
+        },
       ],
       hooks: {
         beforeChange: [ensureFirstUserIsAdmin],
