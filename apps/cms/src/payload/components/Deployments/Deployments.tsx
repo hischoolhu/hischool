@@ -2,7 +2,7 @@ import { Table } from 'payload/dist/admin/components/elements/Table';
 import { Column } from 'payload/dist/admin/components/elements/Table/types';
 import { useConfig } from 'payload/dist/admin/components/utilities/Config';
 import { formatDate } from 'payload/dist/admin/utilities/formatDate';
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
 import useSWR from 'swr';
 import { Deployment } from '../../cloudfront/cloudfront-client';
@@ -43,6 +43,40 @@ const CreatedOnCell: React.FC<{ date: string }> = ({ date }) => {
   return <>{formatDate(date, dateFormat, i18n?.language)}</>;
 };
 
+const StateCell: React.FC<{ data: Deployment['latest_stage'] }> = ({
+  data,
+}) => {
+  const stageStatus =
+    `${data.status}:${data.name}` satisfies `${(typeof data)['status']}:${(typeof data)['name']}`;
+  let pillStyle: ComponentProps<typeof Pill>['pillStyle'] = 'light-gray';
+  let status: 'skipped' | 'deploying' | 'success' | 'error';
+
+  switch (stageStatus) {
+    case 'success:deploy':
+      pillStyle = 'success';
+      status = 'success';
+      break;
+    case 'failure:queued':
+    case 'failure:initialize':
+    case 'failure:clone_repo':
+    case 'failure:build':
+    case 'failure:deploy':
+      pillStyle = 'error';
+      status = 'error';
+      break;
+    case 'idle:queued':
+      pillStyle = 'light-gray';
+      status = 'skipped';
+      break;
+    default:
+      pillStyle = 'warning';
+      status = 'deploying';
+      break;
+  }
+
+  return <Pill pillStyle={pillStyle}>{status}</Pill>;
+};
+
 const deploymentColumns: Column[] = [
   {
     name: 'Environment',
@@ -51,8 +85,10 @@ const deploymentColumns: Column[] = [
     components: {
       Heading: <div>Environment</div>,
       renderCell: (row, data) => (
-        <Pill pillStyle="light-gray" rounded>
-          {data} {/*TODO add link to url*/}
+        <Pill pillStyle="light-gray" className="environment">
+          <a href={row.url} target="_blank">
+            {data}
+          </a>
         </Pill>
       ),
     },
@@ -64,11 +100,7 @@ const deploymentColumns: Column[] = [
     active: true,
     components: {
       Heading: <div>State</div>,
-      renderCell: (row, data) => (
-        <Pill pillStyle="success">
-          {data.name}:{data.status}
-        </Pill>
-      ),
+      renderCell: (row, data) => <StateCell data={data} />,
     },
     label: 'State',
   },

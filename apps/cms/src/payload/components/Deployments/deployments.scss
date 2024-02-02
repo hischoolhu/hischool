@@ -5,6 +5,13 @@
     table {
       width: 100%;
       overflow: auto;
+
+      .environment {
+        text-transform: capitalize;
+        & a {
+          text-decoration: none;
+        }
+      }
     }
   }
 
