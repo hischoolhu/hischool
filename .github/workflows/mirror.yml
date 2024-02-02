@@ -15,3 +15,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           source: "main"
           dest: "preview"
+
+permissions:
+  repository-projects: write
