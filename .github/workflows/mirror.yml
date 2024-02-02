@@ -17,4 +17,4 @@ jobs:
           dest: "preview"
 
 permissions:
-  repository-projects: write
+  contents: write
