@@ -41,7 +41,7 @@ const deploymentColumns: Column[] = [
       Heading: <div>Environment</div>,
       renderCell: (row, data) => (
         <Pill pillStyle="light-gray" rounded>
-          {data}
+          {data} //TODO add link to url
         </Pill>
       ),
     },
