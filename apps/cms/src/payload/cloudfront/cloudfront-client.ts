@@ -28,9 +28,10 @@ export type Deployment = {
 };
 
 export async function getDeployments(): Promise<Deployment[]> {
+  const perPage = 5;
   try {
     const res = await fetch(
-      `accounts/${accountId}/pages/projects/${projectName}/deployments`
+      `accounts/${accountId}/pages/projects/${projectName}/deployments?per_page=${perPage}`
     );
     const body = await res.json();
     return body.result.map(

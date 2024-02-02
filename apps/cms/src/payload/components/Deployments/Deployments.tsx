@@ -3,6 +3,7 @@ import { Column } from 'payload/dist/admin/components/elements/Table/types';
 import { useConfig } from 'payload/dist/admin/components/utilities/Config';
 import { formatDate } from 'payload/dist/admin/utilities/formatDate';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useSWR from 'swr';
 import { Deployment } from '../../cloudfront/cloudfront-client';
 
@@ -32,6 +33,16 @@ const useDeployments = () => {
   };
 };
 
+const CreatedOnCell: React.FC<{ date: string }> = ({ date }) => {
+  const {
+    admin: { dateFormat },
+  } = useConfig();
+
+  const { i18n } = useTranslation();
+
+  return <>{formatDate(date, dateFormat, i18n?.language)}</>;
+};
+
 const deploymentColumns: Column[] = [
   {
     name: 'Environment',
@@ -41,7 +52,7 @@ const deploymentColumns: Column[] = [
       Heading: <div>Environment</div>,
       renderCell: (row, data) => (
         <Pill pillStyle="light-gray" rounded>
-          {data} //TODO add link to url
+          {data} {/*TODO add link to url*/}
         </Pill>
       ),
     },
@@ -67,7 +78,7 @@ const deploymentColumns: Column[] = [
     active: true,
     components: {
       Heading: <div>Created on</div>,
-      renderCell: (row, data) => formatDate(data, 'yyyy.MM.dd. HH:mm:ss'), //TODO extract this & use date format from payload config
+      renderCell: (row, data) => <CreatedOnCell date={data} />,
     },
     label: 'Created on',
   },
