@@ -1,13 +1,12 @@
 @import '~payload/scss';
 
-.dashboard .before-dashboard {
+.actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   gap: base(0.5);
-  margin: base(1) 0;
+  margin-left: auto;
 
-  &--title {
+  &__btn {
     margin: 0;
   }
 }

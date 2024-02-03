@@ -50,11 +50,17 @@ export async function getDeployments(): Promise<Deployment[]> {
   return [];
 }
 
-export async function createDeployment(): Promise<Deployment> {
+export async function createDeployment(
+  environment?: 'preview'
+): Promise<Deployment> {
   try {
+    const data = new FormData();
+    if (environment) {
+      data.append('branch', environment);
+    }
     const res = await fetch(
       `accounts/${accountId}/pages/projects/${projectName}/deployments`,
-      { method: 'POST' }
+      { method: 'POST', body: data }
     );
     const body = await res.json();
     return body.result;

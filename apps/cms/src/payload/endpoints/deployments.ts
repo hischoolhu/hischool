@@ -16,7 +16,7 @@ const throwOnUnauthorized: PayloadHandler = (req, res) => {
 
 export const getDeployments: PayloadHandler = async (
   req,
-  res,
+  res
 ): Promise<cloudflare.Deployment[]> => {
   try {
     throwOnUnauthorized(req, res, null);
@@ -29,13 +29,18 @@ export const getDeployments: PayloadHandler = async (
 
 export const createDeployment: PayloadHandler = async (
   req,
-  res,
+  res
 ): Promise<cloudflare.Deployment> => {
   try {
     throwOnUnauthorized(req, res, null);
   } catch (err) {
     return;
   }
-  const deployment = await cloudflare.createDeployment();
+  const environment = req.body.environment;
+  if (!!environment && environment !== 'preview') {
+    res.status(400).json({ error: 'Bad Request' });
+    return;
+  }
+  const deployment = await cloudflare.createDeployment(environment);
   res.json(deployment);
 };

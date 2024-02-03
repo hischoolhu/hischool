@@ -4,34 +4,11 @@ import { useConfig } from 'payload/dist/admin/components/utilities/Config';
 import { formatDate } from 'payload/dist/admin/utilities/formatDate';
 import React, { ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
-import useSWR from 'swr';
-import { Deployment } from '../../cloudfront/cloudfront-client';
+import { Deployment } from '../../../cloudfront/cloudfront-client';
 
 import { Pill } from 'payload/components';
-import './deployments.scss';
-
-const useDeployments = () => {
-  const {
-    routes: { api },
-    serverURL,
-  } = useConfig();
-  const baseURL = `${serverURL}${api}`;
-  const { data, isLoading, isValidating, error } = useSWR<Deployment[]>(
-    `${baseURL}/deployments`,
-    () => fetch(`${baseURL}/deployments`).then((res) => res.json()),
-    {
-      suspense: true,
-      // refreshInterval: 10 * 1000, //TODO enable this
-    }
-  );
-
-  return {
-    data,
-    isLoading,
-    isValidating,
-    error,
-  };
-};
+import { useDeployments } from '../use-deployments';
+import './index.scss';
 
 const CreatedOnCell: React.FC<{ date: string }> = ({ date }) => {
   const {
@@ -118,7 +95,7 @@ const deploymentColumns: Column[] = [
 
 const baseClass = 'deployments';
 
-const Deployments: React.FC = () => {
+const DeploymentsTable: React.FC = () => {
   const { data: deployments } = useDeployments();
   return (
     <div className={baseClass}>
@@ -127,4 +104,4 @@ const Deployments: React.FC = () => {
   );
 };
 
-export default Deployments;
+export default DeploymentsTable;
