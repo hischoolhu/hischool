@@ -34,3 +34,12 @@
     }
   }
 }
+
+// fixes a bug in the pill component style
+html[data-theme='dark'] {
+  .pill {
+    &--style-warning {
+      color: var(--color-base-1000);
+    }
+  }
+}
